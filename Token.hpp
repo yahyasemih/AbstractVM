@@ -16,13 +16,11 @@ private:
 public:
     Token();
     Token(const Token &t);
-    Token(Token &&t) = default;
     Token(eTokenType type, std::string value);
     explicit Token(eTokenType type);
     ~Token() = default;
 
-    Token &operator=(const Token &t) = default;
-    Token &operator=(Token &&t) noexcept;
+    Token &operator=(const Token &t);
 
     eTokenType getType() const;
     const std::string &getValue() const;

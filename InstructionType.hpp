@@ -16,8 +16,8 @@ class InstructionType {
 private:
     OperandFactory factory;
     eInstruction type;
-    IOperand const *operand;
-    Stack<IOperand const *> *st;
+    IOperand const *operand{};
+    Stack<IOperand const *> *st{};
 
     void push();
     void pop();
@@ -48,10 +48,17 @@ private:
             nullptr
     };
 public:
+    InstructionType();
     InstructionType(eInstruction type, IOperand *operand);
     InstructionType(eInstruction instType, eOperandType opType, const std::string &str);
+    InstructionType(const InstructionType &other);
+    ~InstructionType();
+
+    InstructionType &operator=(const InstructionType &other);
 
     eInstruction getInstruction() const;
+    IOperand const *getOperand() const;
+    BaseOperand const *getBaseOperand() const;
     void setStack(Stack<IOperand const *> *stack);
     void execute();
 };

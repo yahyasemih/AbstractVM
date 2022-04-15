@@ -8,6 +8,16 @@
 
 int Parser::line;
 
+Parser::Parser() = default;
+
+Parser::~Parser() = default;
+
+Parser::Parser(const Parser &) = default;
+
+Parser &Parser::operator=(const Parser &) {
+    return *this;
+}
+
 std::vector<Token> Parser::tokenize(std::string const &input) {
     std::vector<Token> tokens;
     std::smatch match;

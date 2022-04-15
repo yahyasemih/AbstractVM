@@ -9,8 +9,7 @@
 Token::Token() : type(eTokenType::InvalidToken), value() {
 }
 
-Token::Token(const Token &t) : type(t.type), value(t.value) {
-}
+Token::Token(const Token &t) = default;
 
 Token::Token(eTokenType type, std::string value) : type(type), value(std::move(value)) {
 }
@@ -18,18 +17,14 @@ Token::Token(eTokenType type, std::string value) : type(type), value(std::move(v
 Token::Token(eTokenType type) : type(type), value() {
 }
 
+Token &Token::operator=(const Token &t) = default;
+
 eTokenType Token::getType() const {
     return type;
 }
 
 const std::string &Token::getValue() const {
     return value;
-}
-
-Token &Token::operator=(Token &&t) noexcept {
-    type = t.type;
-    value = std::move(t.value);
-    return *this;
 }
 
 bool Token::isExpected(const Token &t) const {

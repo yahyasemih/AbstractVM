@@ -13,6 +13,10 @@ SyntaxErrorException::SyntaxErrorException(std::string const &message, int line)
 SyntaxErrorException::SyntaxErrorException(int line) : std::invalid_argument("syntax error"), line(line){
 }
 
+SyntaxErrorException::~SyntaxErrorException() = default;
+
+SyntaxErrorException::SyntaxErrorException(const SyntaxErrorException &other) = default;
+
 const char *SyntaxErrorException::what() const noexcept {
     std::string str = std::invalid_argument::what();
     str += " at line: " + std::to_string(line);

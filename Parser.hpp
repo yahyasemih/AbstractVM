@@ -49,8 +49,11 @@ private:
     eInstruction getInstructionType(const std::string &str) const;
     eOperandType getOperandType(const std::string &str) const;
 public:
-    Parser() = default;
-    ~Parser() = default;
+    Parser();
+    Parser(const Parser &p);
+    ~Parser();
+
+    Parser &operator=(const Parser &p);
 
     InstructionType parse(std::string const &input);
 };

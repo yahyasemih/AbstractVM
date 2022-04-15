@@ -8,6 +8,8 @@
 #include "exceptions/AssertionErrorException.hpp"
 #include "exceptions/ArithmeticException.hpp"
 
+InstructionType::InstructionType() = default;
+
 InstructionType::InstructionType(eInstruction type, IOperand *operand) : type(type), operand(operand), st(nullptr) {
     if (type == InvalidInstruction) {
         delete operand;
@@ -23,8 +25,31 @@ InstructionType::InstructionType(eInstruction instType, eOperandType opType, std
     }
 }
 
+InstructionType::InstructionType(const InstructionType &other) : type(other.type),
+    operand(factory.createOperand(other.getOperand()->getType(),
+            std::to_string(other.getBaseOperand()->getValue()))), st(other.st) {
+    if (type == InvalidInstruction) {
+        delete operand;
+        throw InvalidInstructionException("invalid instruction");
+    }
+}
+
+InstructionType::~InstructionType() = default;
+
+InstructionType &InstructionType::operator=(const InstructionType &) {
+    return *this;
+}
+
 eInstruction InstructionType::getInstruction() const {
     return type;
+}
+
+IOperand const *InstructionType::getOperand() const {
+    return operand;
+}
+
+BaseOperand const *InstructionType::getBaseOperand() const {
+    return dynamic_cast<BaseOperand const *>(operand);
 }
 
 void InstructionType::setStack(Stack<IOperand const *> *stack) {

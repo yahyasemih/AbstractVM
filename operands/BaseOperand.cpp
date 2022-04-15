@@ -8,6 +8,14 @@
 #include "OperandFactory.hpp"
 #include "../exceptions/ArithmeticException.hpp"
 
+BaseOperand::BaseOperand() = default;
+
+BaseOperand::BaseOperand(const BaseOperand &other) = default;
+
+BaseOperand::~BaseOperand() = default;
+
+BaseOperand &BaseOperand::operator=(const BaseOperand &other) = default;
+
 double BaseOperand::getValue() const {
     return value;
 }

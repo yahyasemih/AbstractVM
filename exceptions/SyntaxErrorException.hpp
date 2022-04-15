@@ -14,6 +14,8 @@ public:
     explicit SyntaxErrorException(std::string const &message);
     explicit SyntaxErrorException(int line);
     SyntaxErrorException(std::string const &message, int line);
+    SyntaxErrorException(const SyntaxErrorException &other);
+    ~SyntaxErrorException();
 
     const char* what() const noexcept override;
 };

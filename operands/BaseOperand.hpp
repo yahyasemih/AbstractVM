@@ -12,10 +12,16 @@ protected:
     double value;
     std::string str_representation;
 public:
+    BaseOperand();
+    BaseOperand(const BaseOperand &other);
+    virtual ~BaseOperand();
+
+    BaseOperand &operator=(const BaseOperand &other);
+
     virtual double getValue() const;
-    virtual ~BaseOperand() = default;
     virtual int getPrecision() const override;
     virtual eOperandType getType() const override = 0;
+
     IOperand const *operator+(IOperand const &rhs) const override;
     IOperand const *operator-(IOperand const &rhs) const override;
     IOperand const *operator*(IOperand const &rhs) const override;
