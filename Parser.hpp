@@ -24,6 +24,7 @@ private:
     const std::map<std::string, eOperandType> strToOperandType {
         {"int8", Int8},
         {"int16", Int16},
+        {"short", Int16},
         {"int32", Int32},
         {"int", Int32},
         {"float", Float},
