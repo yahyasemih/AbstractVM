@@ -9,7 +9,6 @@
 #include "../exceptions/OutOfRangeException.hpp"
 
 Double::Double(const std::string &strValue) {
-    // TODO: throw custom exception
     size_t idx = 0;
     try {
         double double_value = std::stod(strValue, &idx);

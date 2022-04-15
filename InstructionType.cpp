@@ -18,38 +18,37 @@ InstructionType::InstructionType(eInstruction type, IOperand *operand) : type(ty
 }
 
 InstructionType::InstructionType(eInstruction instType, eOperandType opType, std::string const &str) : type(instType),
-    operand(factory.createOperand(opType, str)) , st(nullptr) {
+        operand(factory.createOperand(opType, str)) , st(nullptr) {
     if (type == InvalidInstruction) {
         delete operand;
         throw InvalidInstructionException("invalid instruction");
     }
 }
 
-InstructionType::InstructionType(const InstructionType &other) : type(other.type),
-    operand(factory.createOperand(other.getOperand()->getType(),
-            std::to_string(other.getBaseOperand()->getValue()))), st(other.st) {
+InstructionType::InstructionType(const InstructionType &other) : type(other.type), operand(other.operand),
+        st(other.st) {
     if (type == InvalidInstruction) {
-        delete operand;
         throw InvalidInstructionException("invalid instruction");
     }
 }
 
 InstructionType::~InstructionType() = default;
 
-InstructionType &InstructionType::operator=(const InstructionType &) {
+InstructionType &InstructionType::operator=(const InstructionType &other) {
+    if (this != &other) {
+        this->type = other.type;
+        this->operand = other.operand;
+        this->st = other.st;
+    }
     return *this;
-}
-
-eInstruction InstructionType::getInstruction() const {
-    return type;
 }
 
 IOperand const *InstructionType::getOperand() const {
     return operand;
 }
 
-BaseOperand const *InstructionType::getBaseOperand() const {
-    return dynamic_cast<BaseOperand const *>(operand);
+eInstruction InstructionType::getInstruction() const {
+    return type;
 }
 
 void InstructionType::setStack(Stack<IOperand const *> *stack) {
@@ -92,8 +91,11 @@ void InstructionType::doAssert() {
         const auto *top = reinterpret_cast<const class BaseOperand *>(st->top());
         const auto *op = reinterpret_cast<const class BaseOperand *>(operand);
         if (top->getValue() != op->getValue()) {
-            throw AssertionErrorException(top->toString() + " != " + op->toString());
+            std::string str = op->toString();
+            delete operand;
+            throw AssertionErrorException(top->toString() + " != " + str);
         }
+        delete operand;
     }
 }
 

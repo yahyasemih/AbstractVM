@@ -8,7 +8,6 @@
 #include "../exceptions/InvalidNumberException.hpp"
 
 Int8::Int8(const std::string &strValue) {
-    // TODO: throw custom exception
     size_t idx = 0;
     try {
         int int_value = std::stoi(strValue, &idx);

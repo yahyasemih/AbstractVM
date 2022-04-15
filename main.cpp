@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
                     continue;
                 }
                 instruction.setStack(&st);
-                instructions.push_back(instruction);
+                instructions.emplace_back(instruction);
             } catch (const std::exception &e) {
                 std::cerr << "Error: " << e.what() << std::endl;
                 hasErrors = true;
@@ -67,6 +67,10 @@ int main(int argc, char *argv[]) {
                 st.pop();
             }
             throw InvalidInstructionException("exit instruction not found");
+        } else {
+            for (auto &i : instructions) {
+                delete i.getOperand();
+            }
         }
     } catch (const SyntaxErrorException &e) {
         std::cerr << "Syntax error: " << e.what() << std::endl;

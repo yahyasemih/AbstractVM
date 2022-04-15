@@ -58,7 +58,6 @@ public:
 
     eInstruction getInstruction() const;
     IOperand const *getOperand() const;
-    BaseOperand const *getBaseOperand() const;
     void setStack(Stack<IOperand const *> *stack);
     void execute();
 };

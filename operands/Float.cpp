@@ -9,7 +9,6 @@
 #include "../exceptions/InvalidNumberException.hpp"
 
 Float::Float(const std::string &strValue) {
-    // TODO: throw custom exception
     size_t idx = 0;
     try {
         float float_value = std::stof(strValue, &idx);
