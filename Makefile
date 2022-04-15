@@ -42,4 +42,4 @@ re: fclean all
 -include $(DEPENDS)
 
 %.o: %.cpp Makefile
-	$(CXX) $(CPPFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) -MMD -MP -c $< -o $@
