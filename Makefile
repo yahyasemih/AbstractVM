@@ -1,6 +1,7 @@
 NAME = avm
 CXX = g++
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror
+LDFLAGS = -lreadline
 
 SRC = main.cpp\
     Token.cpp\
@@ -26,7 +27,7 @@ DEPENDS := $(patsubst %.cpp,%.d,$(SRC))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $(CPPFLAGS) $^ -o $@
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
 
 clean:
 	/bin/rm -f $(OBJ) $(DEPENDS)

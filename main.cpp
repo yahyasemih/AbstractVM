@@ -1,3 +1,5 @@
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <iostream>
 #include "Stack.hpp"
 #include "Parser.hpp"
@@ -22,9 +24,14 @@ int main(int argc, char *argv[]) {
     try {
         Parser p;
         std::string line;
+        char *l = nullptr;
 
-        while (std::cin) {
-            getline(std::cin, line);
+        while ((l = readline("> ")) != nullptr) {
+            line = l;
+            if (*l) {
+                add_history(l);
+            }
+            free(l);
             if (line == ";;") {
                 if (argc == 1)
                     break;
