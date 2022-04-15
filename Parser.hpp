@@ -40,7 +40,10 @@ private:
         {"div", Div},
         {"mod", Mod},
         {"print", Print},
-        {"exit", Exit}
+        {"exit", Exit},
+        {"min", Min},
+        {"max", Max},
+        {"avg", Avg}
     };
     static int line;
 

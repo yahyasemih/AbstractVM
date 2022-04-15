@@ -192,3 +192,49 @@ void InstructionType::doExit() {
     }
     exit(0);
 }
+
+void InstructionType::min() {
+    if (st->empty()) {
+        throw InvalidStackStateException("min requires at least one element in the stack");
+    }
+    double min = std::numeric_limits<double>::max();
+    auto it = st->begin();
+    while (it != st->end()) {
+        const auto *op = reinterpret_cast<const class BaseOperand *>(*it);
+        if (op->getValue() < min) {
+            min = op->getValue();
+        }
+        ++it;
+    }
+    std::cout << min << std::endl;
+}
+
+void InstructionType::max() {
+    if (st->empty()) {
+        throw InvalidStackStateException("max requires at least one element in the stack");
+    }
+    double max = std::numeric_limits<double>::lowest();
+    auto it = st->begin();
+    while (it != st->end()) {
+        const auto *op = reinterpret_cast<const class BaseOperand *>(*it);
+        if (op->getValue() > max) {
+            max = op->getValue();
+        }
+        ++it;
+    }
+    std::cout << max << std::endl;
+}
+
+void InstructionType::avg() {
+    if (st->empty()) {
+        throw InvalidStackStateException("avg requires at least one element in the stack");
+    }
+    double avg = 0;
+    auto it = st->begin();
+    while (it != st->end()) {
+        const auto *op = reinterpret_cast<const class BaseOperand *>(*it);
+        avg += op->getValue();
+        ++it;
+    }
+    std::cout << avg / st->size() << std::endl;
+}

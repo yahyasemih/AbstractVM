@@ -17,6 +17,9 @@ enum eInstruction {
     Mod,
     Print,
     Exit,
+    Min,
+    Max,
+    Avg,
     Empty,
     InvalidInstruction
 };

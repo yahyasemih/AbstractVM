@@ -30,10 +30,13 @@ private:
     void mod();
     void print();
     void doExit();
+    void min();
+    void max();
+    void avg();
 
     typedef void (InstructionType::*InstructionFunction)();
 
-    const InstructionFunction instructionFunctions[12] {
+    const InstructionFunction instructionFunctions[15] {
             &InstructionType::push,
             &InstructionType::pop,
             &InstructionType::dump,
@@ -45,6 +48,9 @@ private:
             &InstructionType::mod,
             &InstructionType::print,
             &InstructionType::doExit,
+            &InstructionType::min,
+            &InstructionType::max,
+            &InstructionType::avg,
             nullptr
     };
 public:
