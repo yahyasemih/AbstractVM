@@ -20,6 +20,9 @@ enum eInstruction {
     Min,
     Max,
     Avg,
+    Dup,
+    Clear,
+    Str,
     Empty,
     InvalidInstruction
 };

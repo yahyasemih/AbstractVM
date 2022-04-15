@@ -33,10 +33,13 @@ private:
     void min();
     void max();
     void avg();
+    void dup();
+    void clear();
+    void str();
 
     typedef void (InstructionType::*InstructionFunction)();
 
-    const InstructionFunction instructionFunctions[15] {
+    const InstructionFunction instructionFunctions[18] {
             &InstructionType::push,
             &InstructionType::pop,
             &InstructionType::dump,
@@ -51,6 +54,9 @@ private:
             &InstructionType::min,
             &InstructionType::max,
             &InstructionType::avg,
+            &InstructionType::dup,
+            &InstructionType::clear,
+            &InstructionType::str,
             nullptr
     };
 public:

@@ -64,6 +64,9 @@ void InstructionType::execute() {
 }
 
 void InstructionType::push() {
+    if (operand == nullptr) {
+        throw InvalidStackStateException("could not push element to the stack");
+    }
     st->push(operand);
 }
 
@@ -107,7 +110,7 @@ void InstructionType::add() {
     st->pop();
     IOperand const *op2 = st->top();
     st->pop();
-    st->push(op1->operator+(*op2));
+    st->push(op2->operator+(*op1));
     delete op1;
     delete op2;
 }
@@ -120,7 +123,7 @@ void InstructionType::sub() {
     st->pop();
     IOperand const *op2 = st->top();
     st->pop();
-    st->push(op1->operator-(*op2));
+    st->push(op2->operator-(*op1));
     delete op1;
     delete op2;
 }
@@ -133,7 +136,7 @@ void InstructionType::mul() {
     st->pop();
     IOperand const *op2 = st->top();
     st->pop();
-    st->push(op1->operator*(*op2));
+    st->push(op2->operator*(*op1));
     delete op1;
     delete op2;
 }
@@ -147,7 +150,7 @@ void InstructionType::div() {
     IOperand const *op2 = st->top();
     st->pop();
     try {
-        st->push(op1->operator/(*op2));
+        st->push(op2->operator/(*op1));
     } catch (const ArithmeticException &e) {
         delete op1;
         delete op2;
@@ -166,7 +169,7 @@ void InstructionType::mod() {
     IOperand const *op2 = st->top();
     st->pop();
     try {
-        st->push(op1->operator%(*op2));
+        st->push(op2->operator%(*op1));
     } catch (const ArithmeticException &e) {
         delete op1;
         delete op2;
@@ -186,10 +189,7 @@ void InstructionType::print() {
 }
 
 void InstructionType::doExit() {
-    while (!st->empty()) {
-        delete st->top();
-        st->pop();
-    }
+    clear();
     exit(0);
 }
 
@@ -237,4 +237,39 @@ void InstructionType::avg() {
         ++it;
     }
     std::cout << avg / st->size() << std::endl;
+}
+
+void InstructionType::dup() {
+    if (st->empty()) {
+        throw InvalidStackStateException("dup requires at least one element in the stack");
+    }
+    auto const *op = st->top();
+    auto const *baseOp = dynamic_cast<BaseOperand const *>(op);
+    auto const *newOp = factory.createOperand(baseOp->getType(), baseOp->toString());
+    if (newOp == nullptr) {
+        throw InvalidInstructionException("could not duplicate element");
+    }
+    st->push(newOp);
+}
+
+void InstructionType::clear() {
+    while (!st->empty()) {
+        delete st->top();
+        st->pop();
+    }
+}
+
+void InstructionType::str() {
+    std::string s;
+    auto it = st->rbegin();
+    while (it != st->rend()) {
+        const auto *op = reinterpret_cast<const BaseOperand *>(*it);
+        char c = static_cast<char>(op->getValue());
+        if (c == '\0') {
+            break;
+        }
+        s += c;
+        ++it;
+    }
+    std::cout << s << std::endl;
 }

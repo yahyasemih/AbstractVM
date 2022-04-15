@@ -43,7 +43,10 @@ private:
         {"exit", Exit},
         {"min", Min},
         {"max", Max},
-        {"avg", Avg}
+        {"avg", Avg},
+        {"dup", Dup},
+        {"clear", Clear},
+        {"str", Str}
     };
     static int line;
 

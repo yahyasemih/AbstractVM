@@ -30,9 +30,9 @@ IOperand const *BaseOperand::operator+(IOperand const &rhs) const {
     double rhVal = dynamic_cast<BaseOperand const &>(rhs).getValue();
     std::string res;
     if (opType != eOperandType::Double && opType != eOperandType::Float) {
-        res = std::to_string(static_cast<int64_t >(rhVal + getValue()));
+        res = std::to_string(static_cast<int64_t >(getValue() + rhVal));
     } else {
-        res = std::to_string(rhVal + getValue());
+        res = std::to_string(getValue() + rhVal);
     }
     return factory.createOperand(opType, res);
 }
@@ -43,9 +43,9 @@ IOperand const *BaseOperand::operator-(IOperand const &rhs) const {
     double rhVal = dynamic_cast<BaseOperand const &>(rhs).getValue();
     std::string res;
     if (opType != eOperandType::Double && opType != eOperandType::Float) {
-        res = std::to_string(static_cast<int64_t >(rhVal - getValue()));
+        res = std::to_string(static_cast<int64_t >(getValue() - rhVal));
     } else {
-        res = std::to_string(rhVal - getValue());
+        res = std::to_string(getValue() - rhVal);
     }
     return factory.createOperand(opType, res);
 }
@@ -56,9 +56,9 @@ IOperand const *BaseOperand::operator*(IOperand const &rhs) const {
     double rhVal = dynamic_cast<BaseOperand const &>(rhs).getValue();
     std::string res;
     if (opType != eOperandType::Double && opType != eOperandType::Float) {
-        res = std::to_string(static_cast<int64_t >(rhVal * getValue()));
+        res = std::to_string(static_cast<int64_t >(getValue() * rhVal));
     } else {
-        res = std::to_string(rhVal * getValue());
+        res = std::to_string(getValue() * rhVal);
     }
     return factory.createOperand(opType, res);
 }
@@ -67,14 +67,14 @@ IOperand const *BaseOperand::operator/(IOperand const &rhs) const {
     OperandFactory factory;
     eOperandType opType = getPrecision() >= rhs.getPrecision() ? getType() : rhs.getType();
     double rhVal = dynamic_cast<BaseOperand const &>(rhs).getValue();
-    if (getValue() == 0) {
+    if (rhVal == 0) {
         throw ArithmeticException("Division by 0");
     }
     std::string res;
     if (opType != eOperandType::Double && opType != eOperandType::Float) {
-        res = std::to_string(static_cast<int64_t >(rhVal / getValue()));
+        res = std::to_string(static_cast<int64_t >(getValue() / rhVal));
     } else {
-        res = std::to_string(rhVal / getValue());
+        res = std::to_string(getValue() / rhVal);
     }
     return factory.createOperand(opType, res);
 }
@@ -83,14 +83,14 @@ IOperand const *BaseOperand::operator%(IOperand const &rhs) const {
     OperandFactory factory;
     eOperandType opType = getPrecision() >= rhs.getPrecision() ? getType() : rhs.getType();
     double rhVal = dynamic_cast<BaseOperand const &>(rhs).getValue();
-    if (getValue() == 0) {
+    if (rhVal == 0) {
         throw ArithmeticException("Modulo by 0");
     }
     std::string res;
     if (opType != eOperandType::Double && opType != eOperandType::Float) {
-        res = std::to_string(static_cast<int64_t >(std::fmod(rhVal, getValue())));
+        res = std::to_string(static_cast<int64_t >(std::fmod(getValue(), rhVal)));
     } else {
-        res = std::to_string(std::fmod(rhVal, getValue()));
+        res = std::to_string(std::fmod(getValue(), rhVal));
     }
     return factory.createOperand(opType, res);
 }
