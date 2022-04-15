@@ -28,6 +28,9 @@ private:
     void mul();
     void div();
     void mod();
+    void bit_and();
+    void bit_or();
+    void bit_xor();
     void print();
     void doExit();
     void min();
@@ -39,7 +42,7 @@ private:
 
     typedef void (InstructionType::*InstructionFunction)();
 
-    const InstructionFunction instructionFunctions[18] {
+    const InstructionFunction instructionFunctions[21] {
             &InstructionType::push,
             &InstructionType::pop,
             &InstructionType::dump,
@@ -49,6 +52,9 @@ private:
             &InstructionType::mul,
             &InstructionType::div,
             &InstructionType::mod,
+            &InstructionType::bit_and,
+            &InstructionType::bit_or,
+            &InstructionType::bit_xor,
             &InstructionType::print,
             &InstructionType::doExit,
             &InstructionType::min,

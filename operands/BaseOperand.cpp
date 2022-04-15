@@ -7,6 +7,7 @@
 #include "BaseOperand.hpp"
 #include "OperandFactory.hpp"
 #include "../exceptions/ArithmeticException.hpp"
+#include "../exceptions/InvalidInstructionException.hpp"
 
 BaseOperand::BaseOperand() = default;
 
@@ -95,6 +96,43 @@ IOperand const *BaseOperand::operator%(IOperand const &rhs) const {
     return factory.createOperand(opType, res);
 }
 
+IOperand const *BaseOperand::operator&(IOperand const &rhs) const {
+    auto const &baseOp = dynamic_cast<BaseOperand const &>(rhs);
+    if (!support_bitwise() || !baseOp.support_bitwise()) {
+        throw InvalidInstructionException("And operand not applicable on decimals");
+    }
+    OperandFactory factory;
+    eOperandType opType = getPrecision() >= rhs.getPrecision() ? getType() : rhs.getType();
+    int64_t res = static_cast<int64_t>(getValue()) & static_cast<int64_t>(baseOp.getValue());
+    return factory.createOperand(opType, std::to_string(res));
+}
+
+IOperand const *BaseOperand::operator|(IOperand const &rhs) const {
+    auto const &baseOp = dynamic_cast<BaseOperand const &>(rhs);
+    if (!support_bitwise() || !baseOp.support_bitwise()) {
+        throw InvalidInstructionException("Or operand not applicable on decimals");
+    }
+    OperandFactory factory;
+    eOperandType opType = getPrecision() >= rhs.getPrecision() ? getType() : rhs.getType();
+    int64_t res = static_cast<int64_t>(getValue()) | static_cast<int64_t>(baseOp.getValue());
+    return factory.createOperand(opType, std::to_string(res));
+}
+
+IOperand const *BaseOperand::operator^(IOperand const &rhs) const {
+    auto const &baseOp = dynamic_cast<BaseOperand const &>(rhs);
+    OperandFactory factory;
+    eOperandType opType = getPrecision() >= rhs.getPrecision() ? getType() : rhs.getType();
+    if (!support_bitwise() || !baseOp.support_bitwise()) {
+        throw InvalidInstructionException("Xor operand not applicable on decimals");
+    }
+    int64_t res = static_cast<int64_t>(getValue()) ^ static_cast<int64_t>(baseOp.getValue());
+    return factory.createOperand(opType, std::to_string(res));
+}
+
 std::string const &BaseOperand::toString() const {
     return str_representation;
+}
+
+bool BaseOperand::support_bitwise() const {
+    return getType() != eOperandType ::Float && getType() != eOperandType::Double;
 }

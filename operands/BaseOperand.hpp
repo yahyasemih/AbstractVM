@@ -8,6 +8,8 @@
 #include "IOperand.hpp"
 
 class BaseOperand : public IOperand {
+private:
+    bool support_bitwise() const;
 protected:
     double value;
     std::string str_representation;
@@ -27,6 +29,9 @@ public:
     IOperand const *operator*(IOperand const &rhs) const override;
     IOperand const *operator/(IOperand const &rhs) const override;
     IOperand const *operator%(IOperand const &rhs) const override;
+    IOperand const *operator&(IOperand const &rhs) const override;
+    IOperand const *operator|(IOperand const &rhs) const override;
+    IOperand const *operator^(IOperand const &rhs) const override;
     virtual std::string const &toString() const override;
 };
 

@@ -179,6 +179,63 @@ void InstructionType::mod() {
     delete op2;
 }
 
+void InstructionType::bit_and() {
+    if (st->size() < 2) {
+        throw InvalidStackStateException("Stack has not enough element");
+    }
+    IOperand const *op1 = st->top();
+    st->pop();
+    IOperand const *op2 = st->top();
+    st->pop();
+    try {
+        st->push(op2->operator&(*op1));
+    } catch (const InvalidInstructionException &e) {
+        delete op1;
+        delete op2;
+        throw e;
+    }
+    delete op1;
+    delete op2;
+}
+
+void InstructionType::bit_or() {
+    if (st->size() < 2) {
+        throw InvalidStackStateException("Stack has not enough element");
+    }
+    IOperand const *op1 = st->top();
+    st->pop();
+    IOperand const *op2 = st->top();
+    st->pop();
+    try {
+        st->push(op2->operator|(*op1));
+    } catch (const InvalidInstructionException &e) {
+        delete op1;
+        delete op2;
+        throw e;
+    }
+    delete op1;
+    delete op2;
+}
+
+void InstructionType::bit_xor() {
+    if (st->size() < 2) {
+        throw InvalidStackStateException("Stack has not enough element");
+    }
+    IOperand const *op1 = st->top();
+    st->pop();
+    IOperand const *op2 = st->top();
+    st->pop();
+    try {
+        st->push(op2->operator^(*op1));
+    } catch (const InvalidInstructionException &e) {
+        delete op1;
+        delete op2;
+        throw e;
+    }
+    delete op1;
+    delete op2;
+}
+
 void InstructionType::print() {
     if (st->empty() || st->top()->getType() != Int8) {
         throw InvalidStackStateException("Stack is empty or top element is not an int8");
