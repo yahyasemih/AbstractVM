@@ -10,7 +10,7 @@
 class Int8 : public BaseOperand {
 public:
     explicit Int8(const std::string &strValue);
-    virtual ~Int8() = default;
+    virtual ~Int8();
     eOperandType getType() const override;
 };
 

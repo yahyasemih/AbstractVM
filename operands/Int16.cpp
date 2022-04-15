@@ -7,6 +7,8 @@
 #include "../exceptions/OutOfRangeException.hpp"
 #include "../exceptions/InvalidNumberException.hpp"
 
+Int16::~Int16() = default;
+
 Int16::Int16(const std::string &strValue) {
     size_t idx = 0;
     try {

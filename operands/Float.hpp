@@ -11,7 +11,7 @@
 class Float : public BaseOperand {
 public:
     explicit Float(const std::string &strValue);
-    virtual ~Float() = default;
+    virtual ~Float();
     eOperandType getType() const override;
 };
 

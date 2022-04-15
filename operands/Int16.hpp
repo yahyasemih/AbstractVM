@@ -10,7 +10,7 @@
 class Int16 : public BaseOperand {
 public:
     explicit Int16(const std::string &strValue);
-    virtual ~Int16() = default;
+    virtual ~Int16();
     virtual eOperandType getType() const override;
 };
 

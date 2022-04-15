@@ -10,7 +10,7 @@
 class Double : public BaseOperand {
 public:
     explicit Double(const std::string &strValue);
-    virtual ~Double() = default;
+    virtual ~Double();
     eOperandType getType() const override;
 };
 

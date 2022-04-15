@@ -8,6 +8,8 @@
 #include "../exceptions/OutOfRangeException.hpp"
 #include "../exceptions/InvalidNumberException.hpp"
 
+Float::~Float() = default;
+
 Float::Float(const std::string &strValue) {
     size_t idx = 0;
     try {

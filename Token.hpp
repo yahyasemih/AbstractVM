@@ -18,7 +18,7 @@ public:
     Token(const Token &t);
     Token(eTokenType type, std::string value);
     explicit Token(eTokenType type);
-    ~Token() = default;
+    ~Token();
 
     Token &operator=(const Token &t);
 

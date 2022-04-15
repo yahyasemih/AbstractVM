@@ -7,6 +7,8 @@
 #include "../exceptions/OutOfRangeException.hpp"
 #include "../exceptions/InvalidNumberException.hpp"
 
+Int8::~Int8() = default;
+
 Int8::Int8(const std::string &strValue) {
     size_t idx = 0;
     try {

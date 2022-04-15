@@ -17,6 +17,8 @@ Token::Token(eTokenType type, std::string value) : type(type), value(std::move(v
 Token::Token(eTokenType type) : type(type), value() {
 }
 
+Token::~Token() = default;
+
 Token &Token::operator=(const Token &t) = default;
 
 eTokenType Token::getType() const {

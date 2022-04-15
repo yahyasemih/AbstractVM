@@ -8,6 +8,8 @@
 #include "../exceptions/InvalidNumberException.hpp"
 #include "../exceptions/OutOfRangeException.hpp"
 
+Double::~Double() = default;
+
 Double::Double(const std::string &strValue) {
     size_t idx = 0;
     try {

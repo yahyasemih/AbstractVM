@@ -10,7 +10,7 @@
 class Int32 : public BaseOperand {
 public:
     explicit Int32(const std::string &strValue);
-    virtual ~Int32() = default;
+    virtual ~Int32();
     virtual eOperandType getType() const override;
 };
 

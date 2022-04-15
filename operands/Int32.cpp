@@ -7,6 +7,8 @@
 #include "../exceptions/OutOfRangeException.hpp"
 #include "../exceptions/InvalidNumberException.hpp"
 
+Int32::~Int32() = default;
+
 Int32::Int32(const std::string &strValue) {
     size_t idx = 0;
     try {
