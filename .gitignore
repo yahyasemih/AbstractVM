@@ -1,4 +1,5 @@
 *.o
+*.d
 .idea
 avm
 cmake-build-debug
