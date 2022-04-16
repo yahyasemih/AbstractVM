@@ -88,6 +88,10 @@ void InstructionType::dump() {
 }
 
 void InstructionType::doAssert() {
+    if (st->empty()) {
+        delete operand;
+        throw InvalidStackStateException("Stack has not enough element");
+    }
     if (st->top()->getType() != operand->getType()) {
         throw AssertionErrorException("types are different");
     } else {
